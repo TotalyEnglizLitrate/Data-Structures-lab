@@ -64,7 +64,7 @@ void input(int *arr, int *len) {
         exit(1);
     }
 
-    arr = (int *)realloc(arr, sizeof(int) * *len); // see line 28 as to why realloc instead of malloc
+    arr = (int *)realloc(arr, sizeof(int) * *len); // see declaration of arr in menu as to why realloc instead of malloc
 
     for (int i = 0; i < *len; i++) {
         cout << "Enter element no. " << i +1 << ": ";
