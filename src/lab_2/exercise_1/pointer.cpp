@@ -20,6 +20,8 @@ int main(void) {
     // Chunk of memory for variables that are going to be used in menu function
     // so as to not re request memory on the heap for each iteration.
     // freed memory in exit case of menu.
+    // Chunk is split up into various variables across multiple functions
+    // so as to not have them all be re-allocated on the heap everytime the function is called
     void *chunk = malloc(
         sizeof(char) + sizeof(int) + sizeof(bool) // for menu function itself
         + sizeof(int) * 2 // For sub functions pallindrome, armstrong and perfect numbers
@@ -42,6 +44,7 @@ void menu(void *chunk) {
     int *num_check = (int *) (chunk + sizeof(char));
     bool *ret = (bool *) (chunk + sizeof(char) + sizeof(int));
 
+    // Seperate unused memory in chunk to be passed into sub functions
     void *unused = chunk + sizeof(char) + sizeof(int) + sizeof(bool);
 
     cout << "Enter number to check: ";
