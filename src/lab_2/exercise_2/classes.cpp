@@ -1,3 +1,7 @@
+/*
+  Write a menu drivenprogram to calculate the area of the given shapes using classes.
+*/
+
 #include <iostream>
 
 using namespace std;
