@@ -16,15 +16,17 @@
 
 #include <iostream>
 
-#define LENGTH 5
+#define LENGTH 5 // Hardcoded array length as given in question
 
 using namespace std;
 
+// Union Result type for handling function return values, in order to reduce number of variables in namespace
 union Result {
     int integer;
     bool boolean;
 };
 
+// List ADT implemented using a static array satisfying the parameters given in the question
 class List {
     private:
         int arr[LENGTH];
@@ -53,6 +55,7 @@ int main(void) {
     return 0;
 }
 
+// Menu function that takes in a pointer to a list for modification
 void menu(List *list) {
     cout
         << "1. Insert at the beginning" << endl
@@ -67,11 +70,16 @@ void menu(List *list) {
         << "0. Exit" << endl
         << "Enter choice: ";
 
+    // variables required for calling member functions of list ADT
     unsigned int choice, index;
     int elem;
     union Result result;
     cin >> choice;
 
+
+    // goto statments used for avoiding retyping the same code again and again
+    // 1. handle_boolean_return - For handling boolean return values of member functions of list ADT
+    // 2. _return - For printing extra newlines before returning
     switch (choice) {
     case 0:
         exit(0);
@@ -144,6 +152,12 @@ void menu(List *list) {
         return;
 }
 
+
+// Generalized insert function that takes in element to insert and index to insert at
+// returns false for failure, true otherwise
+// Causes of failure 
+//   - index greater than bound
+//   - no space to insert a new element in list
 bool List::insert_at(int elem, int index) {
     if (index > this->curr + 1 || this->curr == LENGTH - 1)
         return false;
@@ -158,14 +172,24 @@ bool List::insert_at(int elem, int index) {
     return true;
 }
 
+
+// Special case of insert function with index = 0
 bool List::insert_beginning(int elem) {
     return this->insert_at(elem, 0);
 }
 
+
+// Special case of insert function with index = current + 1
 bool List::insert_end(int elem) {
     return this->insert_at(elem, this->curr + 1);
 }
 
+
+// Generalized delete function that takes in index to delete at
+// returns false for failure, true otherwise
+// Causes of failure 
+//   - index greater than bound
+//   - deletion from empty list
 bool List::delete_at(int index) {
     if (index > this->curr || this->curr == -1)
         return false;
@@ -177,14 +201,21 @@ bool List::delete_at(int index) {
     return true;
 }
 
+
+// Special case of delete function with index = 0
 bool List::delete_beginning(void) {
     return this->delete_at(0);
 }
 
+
+// Sepecial case of delete function with index = current
 bool List::delete_end(void) {
     return this->delete_at(this->curr);
 }
 
+
+// Searches the array for a given element
+// returns index of element if found, `-1` if element not in array
 int List::search(int elem) {
     for (int i = 0; i <= this->curr; i++)
         if (arr[i] == elem)
@@ -192,6 +223,9 @@ int List::search(int elem) {
     return -1;
 }
 
+
+// Simple function to display elements in the list
+// elements beyond currently filled point (current) are represented by `_`
 void List::display(void) {
     cout << "[ ";
     for (int i = 0; i < LENGTH; i++) {
@@ -205,6 +239,8 @@ void List::display(void) {
     return;
 }
 
+
+// Rotates the list elements (to the right) by "amount" places, in place
 void List::rotate(int amount) {
     for (int i = 0; i <= this->curr; i++)
         swap(arr[0], arr[(i + amount) % (this->curr + 1)]);
