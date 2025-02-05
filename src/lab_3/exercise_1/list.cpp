@@ -66,7 +66,7 @@ void menu(List *list) {
         << "6. Delete at a given index" << endl
         << "7. Search for an element" << endl
         << "8. Display the list" << endl
-        << "9. Rotate the list (to the right) by a specified amount" << endl
+        << "9. Rotate the list (to the right) by a specified amount - use negative values to rotate to the left" << endl
         << "0. Exit" << endl
         << "Enter choice: ";
 
@@ -240,7 +240,8 @@ void List::display(void) {
 }
 
 
-// Rotates the list elements (to the right) by "amount" places, in place
+// Rotates the list elements by "amount" places, in place
+// Rotates to the right if "amount" is positive, else to the left
 void List::rotate(int amount) {
     for (int i = 0; i <= this->curr; i++)
         swap(arr[0], arr[(i + amount) % (this->curr + 1)]);
