@@ -169,10 +169,7 @@ _return:
 
 // Function that inserts an element at the beginning of the linked list
 bool List::insert_beginning(int elem) {
-  ListNode *new_elem = (ListNode *)malloc(sizeof(ListNode));
-  if (new_elem == NULL)
-    return false; // return false to indicate memory allocation failure
-  *new_elem = ListNode(elem);
+  ListNode *new_elem = new ListNode(elem);
   new_elem->set_next(this->head);
   this->head = new_elem;
   this->len++;
@@ -188,10 +185,7 @@ bool List::insert_at(int elem, unsigned index) {
   else if (index > this->len)
     return false; // return false to indicate out of bounds failure
 
-  ListNode *new_elem = (ListNode *)malloc(sizeof(ListNode));
-  if (new_elem == NULL)
-    return false; // return false to indicate memory allocation failure
-  *new_elem = ListNode(elem);
+  ListNode *new_elem = new ListNode(elem);
   ListNode *iter_elem = this->get_index(index - 1);
 
   new_elem->set_next(iter_elem->get_next());
@@ -210,7 +204,7 @@ bool List::delete_beginning(void) {
     return false; // Cannot delete from an empty list
   ListNode *new_head = this->head->get_next();
 
-  free(this->head);
+  delete this->head;
   this->head = new_head;
   this->len--;
 
@@ -230,7 +224,7 @@ bool List::delete_at(unsigned index) {
   // The next node should be deleted and the current node modified accordingly
   ListNode *to_delete = iter_elem->get_next();
   iter_elem->set_next(to_delete->get_next());
-  free(to_delete);
+  delete to_delete;
   this->len--;
 
   return true;
