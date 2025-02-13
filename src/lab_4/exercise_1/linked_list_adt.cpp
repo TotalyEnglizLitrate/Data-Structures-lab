@@ -58,7 +58,7 @@ public:
   void display_rev(ListNode *);
   void reverse(void);
   ListNode *get_index(unsigned);
-  void clear(ListNode *);
+  void clear(void);
 };
 
 void menu(List *);
@@ -97,7 +97,7 @@ void menu(List *list) {
   // 2. _return - For printing extra newlines before returning
   switch (choice) {
   case 0:
-    list->clear(NULL); // Clear the list before exiting.
+    list->clear(); // Clear the list before exiting.
     exit(0);
 
   case 1:
@@ -322,7 +322,7 @@ ListNode *List::get_index(unsigned index) {
 }
 
 // clears the entire list by deleting the last element until length = 0
-void List::clear(ListNode *head) {
+void List::clear() {
   while (this->len > 0)
     this->delete_end();
 }
