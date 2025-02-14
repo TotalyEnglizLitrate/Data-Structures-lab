@@ -53,6 +53,7 @@ bool List::delete_beginning(void) {
   ListNode *tmp = this->head;
   this->head = this->head->get_next();
   delete tmp;
+  this->len--;
 
   return true;
 }
@@ -129,6 +130,6 @@ void List::display(void) {
 
 // Clear all elements from the list
 void List::clear(void) {
-  while (this->len > 0)
-    this->delete_beginning();
+  while (this->delete_beginning())
+    ;
 }

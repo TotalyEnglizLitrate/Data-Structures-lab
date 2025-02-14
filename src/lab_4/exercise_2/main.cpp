@@ -26,9 +26,9 @@ int main(void) {
 
 // Menu function that handles user interaction and list operations
 void menu(List *lists[]) {
-  unsigned char choice;
+  unsigned choice;
   int elem;
-  
+
   // Display menu options
   cout << "1. Insert into list 1" << endl
        << "2. Insert into list 2" << endl
@@ -49,6 +49,7 @@ void menu(List *lists[]) {
   case 0:
     for (int i = 0; i < 3; i++)
       delete lists[i];
+    exit(0);
 
   case 1:
     lists[0]->insert(elem);

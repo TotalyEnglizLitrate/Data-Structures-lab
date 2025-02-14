@@ -270,7 +270,7 @@ void List::display_rev(ListNode *elem = nullptr) {
     cout << elem->get_val() << " <- ";
     return;
   }
-  cout << "nullptr <- " << elem->get_val() << " <- ";
+  cout << "NULL <- " << elem->get_val() << " <- ";
   return;
 }
 
@@ -317,8 +317,8 @@ ListNode *List::get_index(unsigned index) {
   if (index >= this->len)
     return nullptr; // out of bounds
   ListNode *iter_elem = this->head;
-  for (unsigned i = 0; i <= index; i++, iter_elem = iter_elem->get_next())
-    ;
+  for (unsigned i = 0; i < index; ++i)
+    iter_elem = iter_elem->get_next();
 
   return iter_elem;
 }
