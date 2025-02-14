@@ -43,13 +43,6 @@ bool List::delete_beginning(void) {
   if (this->len == 0)
     return false; // list is empty, cannot delete
 
-  if (this->len == 1) {
-    delete this->head;
-    this->head = nullptr;
-    this->len--;
-    return true;
-  }
-
   ListNode *tmp = this->head;
   this->head = this->head->get_next();
   delete tmp;
