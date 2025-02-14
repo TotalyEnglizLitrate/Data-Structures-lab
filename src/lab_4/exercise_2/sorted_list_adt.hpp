@@ -11,11 +11,11 @@
 
 class ListNode {
 private:
-  int val;      // Value stored in the node
+  int val;        // Value stored in the node
   ListNode *next; // Pointer to the next node
 
 public:
-  ListNode(int);           
+  ListNode(int);
   int get_val(void);
   ListNode *get_next(void);
   void set_val(int);
@@ -26,8 +26,8 @@ class List {
 private:
   ListNode *head;
   unsigned len;
-  ListNode *get_head(void); // Returns the head pointer
-  bool delete_end(void);    // Helper function to delete the last element
+  ListNode *get_head(void);    // Returns the head pointer
+  bool delete_beginning(void); // Helper function to delete the first element
 
 public:
   List();

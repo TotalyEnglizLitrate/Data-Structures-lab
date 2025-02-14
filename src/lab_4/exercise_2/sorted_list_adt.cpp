@@ -1,6 +1,6 @@
 /*
-  Implementation of a Sorted List ADT using a dynamically sized singly linked list
-  The list maintains elements in ascending order during insertion
+  Implementation of a Sorted List ADT using a dynamically sized singly linked
+  list The list maintains elements in ascending order during insertion
   Implements the following operations:
   1. Insert (maintains sorted order)
   2. Merge (combines two sorted lists)
@@ -39,7 +39,7 @@ List::~List() { this->clear(); }
 ListNode *List::get_head(void) { return this->head; }
 
 // Delete the last element of the list
-bool List::delete_end(void) {
+bool List::delete_beginning(void) {
   if (this->len == 0)
     return false; // list is empty, cannot delete
 
@@ -50,16 +50,9 @@ bool List::delete_end(void) {
     return true;
   }
 
-  // Traverse to second-to-last node
-  ListNode *iter_elem = this->head;
-  for (unsigned i = 0; i < this->len - 2; i++, iter_elem = iter_elem->get_next())
-    ;
-
-  // Delete last node and update next pointer of new last element
-  ListNode *to_delete = iter_elem->get_next();
-  iter_elem->set_next(nullptr);
-  delete to_delete;
-  this->len--;
+  ListNode *tmp = this->head;
+  this->head = this->head->get_next();
+  delete tmp;
 
   return true;
 }
@@ -67,14 +60,14 @@ bool List::delete_end(void) {
 // Insert an element while maintaining sorted order
 void List::insert(int elem) {
   ListNode *new_node = new ListNode(elem);
-  
+
   // Handle empty list case
   if (this->head == nullptr) {
     this->head = new_node;
     this->len++;
     return;
   }
-  
+
   // Handle insertion at beginning if new element is smallest
   if (this->head->get_val() > elem) {
     new_node->set_next(this->head);
