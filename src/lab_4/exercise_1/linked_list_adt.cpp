@@ -56,7 +56,8 @@ public:
   long search(int);
   void display(void);
   void display_rev(ListNode *);
-  void reverse(void);
+  void reverse_in_place(void);
+  void reverse_with_array(void);
   ListNode *get_index(unsigned);
   void clear(void);
 };
@@ -152,7 +153,7 @@ void menu(List *list) {
     list->display_rev(nullptr);
     goto _return;
   case 10:
-    list->reverse();
+    list->reverse_with_array();
     goto _return;
   default:
     cout << "Invalid input! please try again" << endl;
@@ -274,7 +275,8 @@ void List::display_rev(ListNode *elem = nullptr) {
 }
 
 // Reverse the list in place by swapping the extreme nodes outside in
-void List::reverse(void) {
+// Reverses the list using constant extra space and O(n^2) time
+void List::reverse_in_place(void) {
   if (this->len <= 1)
     return; // No need to reverse list with 0 or 1 elements
 
@@ -324,5 +326,31 @@ ListNode *List::get_index(unsigned index) {
 // clears the entire list by deleting the last element until length = 0
 void List::clear() {
   while (this->len > 0)
-    this->delete_end();
+    this->delete_beginning();
+}
+
+// Reverse the list using an array to store values - O(n) time but O(n) extra space
+void List::reverse_with_array(void) {
+  if (this->len <= 1)
+    return; // No need to reverse list with 0 or 1 elements
+
+  // Create array to store values
+  int* values = new int[this->len];
+  
+  // Copy values to array
+  ListNode* current = this->head;
+  for (unsigned int i = 0; i < this->len; i++) {
+    values[i] = current->get_val();
+    current = current->get_next();
+  }
+  
+  // Update list values in reverse order
+  current = this->head;
+  for (int i = this->len - 1; i >= 0; i--) {
+    current->set_val(values[i]);
+    current = current->get_next();
+  }
+  
+  // Clean up
+  delete[] values;
 }
