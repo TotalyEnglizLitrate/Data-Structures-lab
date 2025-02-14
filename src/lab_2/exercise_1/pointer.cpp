@@ -28,7 +28,7 @@ int main(void) {
         + sizeof(int) * 4 // Armstrong number itself requires 1 more integer variable, power requires 3 more
         );
 
-    if (chunk == NULL) {
+    if (chunk == nullptr) {
         cout << "Error allocating memory!";
         return 1;
     }

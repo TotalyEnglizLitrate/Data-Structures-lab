@@ -33,7 +33,7 @@ private:
   ListNode *next;
 
 public:
-  ListNode(int elem) : val(elem), next(NULL) {}
+  ListNode(int elem) : val(elem), next(nullptr) {}
   int get_val(void) { return this->val; }
   ListNode *get_next(void) { return this->next; }
   void set_val(int val) { this->val = val; }
@@ -46,7 +46,7 @@ private:
   unsigned int len;
 
 public:
-  List() : head(NULL), len(0) {}
+  List() : head(nullptr), len(0) {}
   bool insert_beginning(int);
   bool insert_at(int, unsigned);
   bool insert_end(int);
@@ -149,7 +149,7 @@ void menu(List *list) {
     goto _return;
 
   case 9:
-    list->display_rev(NULL);
+    list->display_rev(nullptr);
     goto _return;
   case 10:
     list->reverse();
@@ -246,7 +246,7 @@ long List::search(int target) {
 }
 
 // Display the elements of linked list like so,
-// HEAD -> elem1 -> elem2 ..... -> elemn -> NULL
+// HEAD -> elem1 -> elem2 ..... -> elemn -> nullptr
 void List::display(void) {
   cout << "HEAD -> ";
   ListNode *iter_elem = this->head;
@@ -256,20 +256,20 @@ void List::display(void) {
 }
 
 // Display the elements of linked list in reverse like so,
-// NULL <- elemn ...... elem2 <- elem1 <- HEAD
-void List::display_rev(ListNode *elem = NULL) {
-  if (elem == NULL) {
+// nullptr <- elemn ...... elem2 <- elem1 <- HEAD
+void List::display_rev(ListNode *elem = nullptr) {
+  if (elem == nullptr) {
     elem = this->head;
     this->display_rev(elem);
     cout << "HEAD" << endl;
     return;
   }
-  if (elem->get_next() != NULL) {
+  if (elem->get_next() != nullptr) {
     this->display_rev(elem->get_next());
     cout << elem->get_val() << " <- ";
     return;
   }
-  cout << "NULL <- " << elem->get_val() << " <- ";
+  cout << "nullptr <- " << elem->get_val() << " <- ";
   return;
 }
 
@@ -285,14 +285,14 @@ void List::reverse(void) {
   // required to mark the proper next for the previous node and swapped node
   start = this->head;
   end = this->get_index(this->len - 1);
-  pre_start = post_end = NULL;
+  pre_start = post_end = nullptr;
   post_start = start->get_next();
   pre_end = this->get_index(this->len - 2);
 
   for (unsigned int i = 0; i < this->len / 2; i++) {
     // if pre_start is a non-null element i.e we are not at the start of the
     // list, point pre_start to the right extreme node to be swapped with
-    if (pre_start != NULL)
+    if (pre_start != nullptr)
       pre_start->set_next(end);
 
     // Similarly update the next pointers of other nodes involved in the swap
@@ -313,7 +313,7 @@ void List::reverse(void) {
 // Gets the node at a given index
 ListNode *List::get_index(unsigned index) {
   if (index >= this->len)
-    return NULL; // out of bounds
+    return nullptr; // out of bounds
   ListNode *iter_elem = this->head;
   for (unsigned i = 0; i <= index; i++, iter_elem = iter_elem->get_next())
     ;
