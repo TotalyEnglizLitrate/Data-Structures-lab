@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Function that inserts an element at the beginning of the circular linked list
 bool List::insert_beginning(int elem) {
   ListNode *new_elem = new ListNode(elem);
   if (new_elem == nullptr)
@@ -19,13 +20,15 @@ bool List::insert_beginning(int elem) {
   return true;
 }
 
+// Function that inserts an element at a given index in the circular linked
+// list
 bool List::insert_at(int elem, unsigned index) {
   if (index == 0)
-    return this->insert_beginning(elem);
-  else if (index == this->len)
-    return this->insert_end(elem);
-  else if (index > this->len)
-    return false;
+    return this->insert_beginning(elem); // defer to insert_beginning if index
+                                         // is 0
+  if (index == this->len)
+    return this->insert_end(elem); // defer to insert_end if index is equal to
+                                   // length
 
   ListNode *new_elem = new ListNode(elem);
   if (new_elem == nullptr)
@@ -44,6 +47,7 @@ bool List::insert_at(int elem, unsigned index) {
   return true;
 }
 
+// Function that inserts an element at the end of the circular linked list
 bool List::insert_end(int elem) {
   if (this->len == 0)
     return this->insert_beginning(elem);
@@ -59,7 +63,8 @@ bool List::insert_end(int elem) {
   return true;
 }
 
-bool List::delete_beginning() {
+// Function to delete the first node of the circular linked list
+bool List::delete_beginning(void) {
   if (this->head == nullptr)
     return false;
 
@@ -75,6 +80,7 @@ bool List::delete_beginning() {
   return true;
 }
 
+// Function to delete an element at a given index in the circular linked list
 bool List::delete_at(unsigned index) {
   if (index == 0)
     return this->delete_beginning();
@@ -92,6 +98,7 @@ bool List::delete_at(unsigned index) {
   return true;
 }
 
+// Function to delete the last node of the circular linked list
 bool List::delete_end(void) {
   if (this->len <= 1)
     return this->delete_beginning();
@@ -106,6 +113,7 @@ bool List::delete_end(void) {
   return true;
 }
 
+// Function to search for a target element in the circular linked list
 long List::search(int target) {
   ListNode *iter_elem = this->head;
   unsigned i = 0;
@@ -119,6 +127,7 @@ long List::search(int target) {
   return -1;
 }
 
+// Function to display the elements of the circular linked list
 void List::display(void) {
   cout << "HEAD -> ";
   ListNode *iter_elem = this->head;
@@ -129,6 +138,7 @@ void List::display(void) {
   cout << "HEAD";
 }
 
+// Helper function to get the node at a given index
 ListNode *List::get_index(unsigned index) {
   if (index >= this->len || this->head == nullptr) {
     return nullptr;
@@ -140,6 +150,7 @@ ListNode *List::get_index(unsigned index) {
   return iter_elem;
 }
 
+// Function to clear all nodes from the circular linked list
 void List::clear(void) {
   while (this->len > 0) {
     this->delete_beginning();
