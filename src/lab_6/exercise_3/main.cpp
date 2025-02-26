@@ -6,7 +6,6 @@
 * 4. Exit
 */
 
-// TODO: allow variable names for = operator
 // TODO: postfix expression evaluvation
 
 #include <iostream>
@@ -58,6 +57,7 @@ bool validate_infix(string *infix_expr) {
             else is_operator = false;
         } else {
             if (!(48 <= i_char &&  i_char <= 57))
+                if (i == 0 && (65 <= i_char && i_char <= 90 && 97 <= i_char && i_char <= 122) && infix_expr->at(1) == '=') continue;
                 if (!is_op(i_char)) return false;
                 else is_operator = true;
         }
