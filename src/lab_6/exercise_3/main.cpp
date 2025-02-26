@@ -6,6 +6,8 @@
 * 4. Exit
 */
 
+// TODO: allow variable names for = operator
+// TODO: postfix expression evaluvation
 
 #include <iostream>
 #include "stack.hpp"
