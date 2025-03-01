@@ -1,28 +1,22 @@
 /*
-* Implement a Stack (of char's) using a singly linked list
-*/
-
-#include <iostream>
-
-using namespace std;
-
+ * Implement a Stack (of unsigned int's) using a singly linked list
+ */
 
 class Stack {
 private:
-    struct Node {
-        char val;
-        Node *next;
-    };
-    unsigned len;
-    Node *head;
-    bool insert_beg(char);
-    void delete_beg(void);
-    
-public:
-    Stack(void): len(0), head(nullptr) {}
-    bool push(char);
-    char *pop(void);
-    char *peek(void);
-    void clear(void);
-};
+  struct Node {
+    unsigned val;
+    Node *next;
+  };
+  unsigned len;
+  Node *head;
+  bool insert_beg(char);
+  void delete_beg(void);
 
+public:
+  Stack(void) : len(0), head(nullptr) {}
+  bool push(char);
+  unsigned *pop(void);
+  unsigned *peek(void);
+  void clear(void);
+};
