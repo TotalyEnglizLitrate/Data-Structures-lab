@@ -37,7 +37,7 @@ unsigned filtered_min(unsigned arr[], unsigned length) {
 void find_max_blocks(unsigned arr[], unsigned length) {
   unsigned to_take;
   while ((to_take = filtered_min(arr, length)) != length) {
-    arr[0] = ((arr[0] + arr[to_take]) >> 1) + ((arr[0] + arr[to_take]) & 1);
+    arr[0] = ((arr[0] + arr[to_take] + 1) >> 1);
     swap(arr[to_take], arr[length - 1]);
     length--;
   }
