@@ -9,17 +9,21 @@ using namespace std;
 
 unsigned filtered_min(unsigned[], unsigned);
 void find_max_blocks(unsigned[], unsigned);
-void run_testcase(unsigned);
+ * first element and considering only elements greater than the first.
 
 int main() {
   unsigned test_case_count, length;
   cin >> test_case_count;
+  unsigned results[test_case_count];
 
-  while (test_case_count--) {
+  for (unsigned i = 0; i < test_case_count; i++) {
     cin >> length;
-    run_testcase(length);
+    results[i] = run_testcase(length);
   }
 
+  for (unsigned i = 0; i < test_case_count; i++) {
+    cout << results[i] << endl;
+  }
   return 0;
 }
 
@@ -43,12 +47,12 @@ void find_max_blocks(unsigned arr[], unsigned length) {
   }
 }
 
-void run_testcase(unsigned length) {
+unsigned run_testcase(unsigned length) {
   unsigned towers[length];
   for (unsigned idx = 0; idx < length; idx++)
     cin >> towers[idx];
 
   find_max_blocks(towers, length);
 
-  cout << towers[0] << endl;
+  return towers[0];
 }
