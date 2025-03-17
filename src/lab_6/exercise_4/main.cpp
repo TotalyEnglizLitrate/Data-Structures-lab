@@ -18,6 +18,7 @@ public:
   BalancedParenCounter(void) : BalancedParenCounter(false) {};
   BalancedParenCounter(bool reverse) : counter(0), reverse(reverse) {};
   bool add_paren(enum Paren);
+  unsigned get_count(void) { return counter; }
   bool is_rev(void) { return reverse; }
 };
 
@@ -77,7 +78,7 @@ bool is_balanced(string *parens, BalancedParenCounter *counter) {
       res = false;
   }
 
-  return res;
+  return res && counter->get_count() == 0;
 }
 
 // Function to add a parenthesis to the counter and check if the balance is
