@@ -1,16 +1,46 @@
-/*
- * Solve the following codeforces question -
- * https://codeforces.com/problemset/problem/1767/B
+/**
+ * @file main.cpp
+ * @brief Solves the Codeforces problem 1767/B: Block Towers.
+ * @details This program reads a sequence of tower heights and calculates the
+ * maximum height of the first tower after repeatedly merging towers.
+ * @see https://codeforces.com/problemset/problem/1767/B
  */
 
 #include <iostream>
 
 using namespace std;
 
-unsigned filtered_min(unsigned[], unsigned);
-void find_max_blocks(unsigned[], unsigned);
+/**
+ * @brief Finds the index of the minimum element in an array, excluding the
  * first element and considering only elements greater than the first.
+ * @param arr The array to search.
+ * @param length The length of the array.
+ * @return The index of the minimum element, or the length of the array if no
+ * such element exists.
+ */
+unsigned filtered_min(unsigned arr[], unsigned length);
 
+/**
+ * @brief Modifies the array by repeatedly merging the first element with the
+ * minimum element greater than it.
+ * @param arr The array of tower heights.
+ * @param length The length of the array.
+ */
+void find_max_blocks(unsigned arr[], unsigned length);
+
+/**
+ * @brief Runs a single test case, reading tower heights and calculating the
+ * final height of the first tower.
+ * @param length The number of towers in the test case.
+ * @return The final height of the first tower.
+ */
+unsigned run_testcase(unsigned length);
+
+/**
+ * @brief The main function, which reads the number of test cases and processes
+ * each one.
+ * @return 0 on successful execution.
+ */
 int main() {
   unsigned test_case_count, length;
   cin >> test_case_count;
