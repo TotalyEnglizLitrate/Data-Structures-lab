@@ -10,16 +10,15 @@ using namespace std;
 
 class BalancedParenCounter {
 private:
-  unsigned opening_parens, closing_parens;
+  unsigned counter;
   bool reverse;
 
 public:
   enum Paren { opening, closing };
   BalancedParenCounter(void) : BalancedParenCounter(false) {};
-  BalancedParenCounter(bool reverse)
-      : opening_parens(0), closing_parens(0), reverse(reverse) {};
+  BalancedParenCounter(bool reverse) : counter(0), reverse(reverse) {};
   bool add_paren(enum Paren);
-  bool is_eq(void);
+  unsigned get_count(void) { return counter; }
   bool is_rev(void) { return reverse; }
 };
 
@@ -65,8 +64,7 @@ void menu(void) {
 // Function to check if a string of parentheses is balanced
 bool is_balanced(string *parens, BalancedParenCounter *counter) {
   bool res = true;
-  // Set start, stop, step based on if we're iterating forwards or backwards
-  // (see: `BalancedParenCounter->reverse`)
+
   unsigned start = counter->is_rev() ? parens->length() - 1 : 0;
   unsigned end = counter->is_rev() ? 0 : parens->length();
   unsigned step = counter->is_rev() ? -1 : 1;
@@ -79,28 +77,22 @@ bool is_balanced(string *parens, BalancedParenCounter *counter) {
     else
       res = false;
   }
-  // if res is false at any point, this breaks out of the for loop and returns
-  // false
-  // if res is true till the end, check if the amount of opening_parens
-  // and closing_parens are the same
-  return res && counter->is_eq();
+
+  return res && counter->get_count() == 0;
 }
 
 // Function to add a parenthesis to the counter and check if the balance is
 // maintained
 bool BalancedParenCounter::add_paren(enum Paren paren) {
-  if (paren == opening)
-    opening_parens++;
-  else
-    closing_parens++;
+  enum Paren check_paren = reverse ? closing : opening;
 
-  // Check if the balance is maintained depending on whether we're traversing it
-  // forwards or backwards
-  return reverse ? closing_parens >= opening_parens
-                 : opening_parens >= closing_parens;
-}
+  if (paren == check_paren) {
+    counter++;
+  } else if (counter == 0) {
+    return false;
+  } else {
+    counter--;
+  }
 
-// Function to check if the number of opening and closing parentheses are equal
-bool BalancedParenCounter::is_eq(void) {
-  return opening_parens == closing_parens;
+  return true;
 }
