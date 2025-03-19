@@ -28,6 +28,17 @@ public:
     Stack(void): top(nullptr) {}
 
     /*
+     * @brief Destroys the stack
+    */
+    ~Stack(void) {
+    Node *curr = top;
+    while (curr != nullptr) {
+        top = top->next;
+        delete curr;
+        curr = top;
+    }
+
+    /*
      * @brief Pushes an element onto the stack
      * @param elem Character value to push
      * @param success Boolean pointer to set to true/false to indicate success/failure

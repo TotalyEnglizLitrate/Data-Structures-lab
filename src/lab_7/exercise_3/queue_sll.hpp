@@ -28,6 +28,17 @@ public:
     Queue(void): front(nullptr), rear(nullptr) {}
 
     /*
+     * @brief Destroys the queue
+    */
+    ~Queue(void) {
+    Node *curr = front;
+    while (curr != nullptr) {
+        front = front->next;
+        delete curr;
+        curr = front;
+    }
+
+    /*
      * @brief Enqueues an element
      * @param elem Integer value to enqueue
      * @param success Boolean pointer to set to true/false to indicate success/failure
