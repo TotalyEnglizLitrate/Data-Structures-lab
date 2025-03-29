@@ -29,19 +29,19 @@ int main() {
 }
 
 void run_testcase(unsigned to_rem_count, unsigned games_count) {
-    unsigned min_idx = 0, player_count;
-    for (unsigned i = 0, tmp; i < to_rem_count; i++) {
-        cin >> tmp;
-        if (min_idx == 0)
-            min_idx = tmp;
-        if (tmp < min_idx)
-            min_idx = tmp;
-    }
+  unsigned min_idx = 0, player_count;
+  for (unsigned i = 0, tmp; i < to_rem_count; i++) {
+    cin >> tmp;
+    if (min_idx == 0)
+      min_idx = tmp;
+    if (tmp < min_idx)
+      min_idx = tmp;
+  }
 
-    for (unsigned i = 0; i < games_count; i++) {
-        cin >> player_count;
-        cout << (player_count >= min_idx ? min_idx - 1 : player_count) << " ";
-    }
-    cout << endl;
-    return;  
+  for (unsigned i = 0; i < games_count; i++) {
+    cin >> player_count;
+    cout << (player_count >= min_idx ? min_idx - 1 : player_count) << " ";
+  }
+  cout << endl;
+  return;
 }

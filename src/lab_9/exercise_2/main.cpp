@@ -27,21 +27,23 @@ int main() {
 }
 
 void run_testcase(unsigned player_count) {
-    unsigned max_idx = 0, second_max_idx = 0;
-    int player_strengths[player_count];
-    for (unsigned i = 0; i < player_count; i++) {
-        cin >> player_strengths[i];
-        if (player_strengths[i] >= player_strengths[max_idx]) {
-            second_max_idx = max_idx;
-            max_idx = i;
-        } else if (player_strengths[i] > player_strengths[second_max_idx]) {
-            second_max_idx = i;
-        }
+  unsigned max_idx = 0, second_max_idx = 0;
+  int player_strengths[player_count];
+  for (unsigned i = 0; i < player_count; i++) {
+    cin >> player_strengths[i];
+    if (player_strengths[i] >= player_strengths[max_idx]) {
+      second_max_idx = max_idx;
+      max_idx = i;
+    } else if (player_strengths[i] > player_strengths[second_max_idx]) {
+      second_max_idx = i;
     }
+  }
 
-    for (unsigned i = 0; i < player_count; i++) {
-      cout << player_strengths[i] - player_strengths[max_idx != i ? max_idx : second_max_idx] << " ";
-    }
-    cout << endl;
-    return;  
+  for (unsigned i = 0; i < player_count; i++) {
+    cout << player_strengths[i] -
+                (player_strengths[max_idx != i ? max_idx : second_max_idx])
+         << " ";
+  }
+  cout << endl;
+  return;
 }

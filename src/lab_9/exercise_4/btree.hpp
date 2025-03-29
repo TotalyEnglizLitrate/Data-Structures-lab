@@ -40,23 +40,16 @@ private:
    */
   int _postorder(TreeNode *root, char *traversal, int end);
 
-  /*
-   * @brief Helper function to search that implements the recursive part
-   * @param root root node of tree (or subtree) to search
-   * @param elem char to search for
-   * @param string Path to keep track of to return at the end
-   */
-  std::string _search(TreeNode *root, char elem, std::string path);
 
   /*
    * @brief Helper function for destructor
-   * @param root Root node oftree (or subtree) to delete
+   * @param root Root node of tree (or subtree) to delete
    */
   void clear(TreeNode *root);
 
 public:
   /*
-   * @brief Construncts a new instance of the BTree class
+   * @brief Construncts a new empty BTree
    */
   BTree(void) : root(nullptr) {}
 
@@ -64,13 +57,6 @@ public:
    * @brief Frees the memory allocated for the tree nodes
    */
   ~BTree(void) { clear(root); }
-
-  /*
-   * @brief Inserts an element into the tree
-   * @param elem Character value to push
-   * @return Boolean indicating success/failure
-   */
-  bool insert(char elem);
 
   /*
    * @brief Inorder traversal of the tree
@@ -91,14 +77,16 @@ public:
    */
   char *postorder(void);
 
-  /*
-   * @brief Search for an element and print it's path if found
-   * @return String representing steps taken to reach the node from the root
-   */
-  std::string search(char elem);
 
   /*
    * @brief Returns no. of elements in the Tree
    */
   unsigned get_size(void);
+
+  /*
+   * @brief Costructs an expression tree from a valid postfix expression
+   * @param expr any valid postfix expression
+   * @return Boolean flag indicating success/failure
+   */
+  bool create_expression_tree(std::string expr);
 };

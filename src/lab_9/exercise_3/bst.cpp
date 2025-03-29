@@ -107,3 +107,10 @@ std::string BinarySearchTree::search(int elem, bool *success) {
 
     return path;
 }
+
+void BinarySearchTree::clear(Node *root) {
+    if (root == nullptr) return;
+    clear(root->left);
+    clear(root->right);
+    delete root;
+} 

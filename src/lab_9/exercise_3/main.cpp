@@ -4,6 +4,30 @@
 
 using namespace std;
 
+/*
+ * @brief Print traversal array returned by the BST methods
+ * @param arr Integer (array like) pointer, with first element being the length
+ * of the array
+ */
+void print_traversal(int *arr);
+
+/*
+ * @brief Menu function to handle user input
+ * @param tree Pointer to the BTree being modified
+ * @return Does not return anything, but exits with status code 0 if the user chooses to exit
+ */
+void menu(BinarySearchTree *bst);
+
+/*
+ * @brief Main function that instantiates a new BST and defers to menu fucntion
+ * @return Return is handled via exit in menu
+ */
+int main(void) {
+    BinarySearchTree *bst = new BinarySearchTree();
+    while (true)
+        menu(bst);
+}
+
 void print_traversal(int *arr) {
     if (arr == nullptr) {
         cout << "Operation failed!" << endl;
@@ -25,7 +49,7 @@ void menu(BinarySearchTree *bst) {
         << "5. Search" << endl
         << "0. Exit" << endl
         << "Enter choice: ";
-    
+
     unsigned choice;
     int elem;
     bool success;
@@ -36,15 +60,15 @@ void menu(BinarySearchTree *bst) {
     case 0:
         delete bst;
         exit(0);
-    
+
     case 1:
-        cout << "Enter element to enqueue: ";
+        cout << "Enter element to insert: ";
         cin >> elem;
         success = bst->insert(elem);
         if (!success)
             cout << "Operation failed!" << endl;
         break;
-    
+
     case 2:
         print_traversal(bst->preorder());
         break;
@@ -56,13 +80,13 @@ void menu(BinarySearchTree *bst) {
     case 4:
         print_traversal(bst->inorder());
         break;
-    
+
     case 5:
         cout << "Enter element to search: ";
         cin >> elem;
         path = bst->search(elem, &success);
         if (success)
-            cout << path << endl;
+            cout << path << " -> " << elem << endl;
         else
             cout << "Element not found in tree!" << endl;
         break;
@@ -73,10 +97,4 @@ void menu(BinarySearchTree *bst) {
 
 
     cout << endl << endl;
-}
-
-int main(void) {
-    BinarySearchTree *bst = new BinarySearchTree();
-    while (true)
-        menu(bst);
 }
