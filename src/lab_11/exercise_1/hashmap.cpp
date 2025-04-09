@@ -5,7 +5,7 @@ bool HashMap::rehash(void) {
     hash_table.resize(hash_table.size() * 2);
     for (unsigned i = 0; i < hash_table.size(); i++) hash_table[i] = nullptr;
 
-    for (HashTableEntry *entry: old_table) {
+    for (HashTableEntry *entry : old_table) {
         if (!insert(entry->key, entry->val)) {
             hash_table.resize(0);
             hash_table = old_table;
@@ -23,10 +23,10 @@ bool HashMap::insert(int key, int val) {
     search(key, &membership);
     if (membership) return false;
     long unsigned idx, i;
-    idx = i =  hash_function(key) % hash_table.size();
-    while (i < hash_table.size()) {
+    idx = i = hash_function(key) % hash_table.size();
+    while (i != idx) {
         if (hash_table[i] == nullptr) {
-            hash_table[i] = new HashTableEntry {key, val};
+            hash_table[i] = new HashTableEntry { key, val };
 
             if (hash_table[i] == nullptr) return false;
             len++;
@@ -34,24 +34,11 @@ bool HashMap::insert(int key, int val) {
             else return true;
         }
         i++;
-    }
-
-    i = 0;
-    while (i < idx) {
-        if (hash_table[i] == nullptr) {
-            hash_table[i] = new HashTableEntry {key, val};
-            
-            if (hash_table[i] == nullptr) return false;
-            len++;
-            if ((len * 10) / hash_table.size() > fill_ratio) rehash();
-            return true;
-        }
-        i++;
+        if (i >= hash_table.size())
+            i %= hash_table.size();
     }
 
     return false;
-
-
 }
 
 
@@ -59,9 +46,9 @@ int HashMap::del(int key, bool *success) {
     *success = true;
     int to_ret = 0;
     long unsigned idx, i;
-    idx = i =  hash_function(key) % hash_table.size();
+    idx = i = hash_function(key) % hash_table.size();
 
-    while (i < hash_table.size()) {
+    while (i != idx) {
         if (hash_table[i] != nullptr && hash_table[i]->key == key) {
             *success = true;
             to_ret = hash_table[i]->val;
@@ -72,20 +59,8 @@ int HashMap::del(int key, bool *success) {
         }
 
         i++;
-    }
-
-    i = 0;
-    while (i < idx) {
-        if (hash_table[i] != nullptr && hash_table[i]->key == key) {
-            *success = true;
-            to_ret = hash_table[i]->val;
-            delete hash_table[i];
-            hash_table[i] = nullptr;
-            len--;
-            return to_ret;
-        }
-
-        i++;
+        if (i >= hash_table.size())
+            i %= hash_table.size();
     }
 
     *success = false;
@@ -95,27 +70,22 @@ int HashMap::del(int key, bool *success) {
 int HashMap::search(int key, bool *success) {
     *success = true;
     long unsigned idx, i;
-    idx = i =  hash_function(key) % hash_table.size();
+    idx = i = hash_function(key) % hash_table.size();
 
-    while (i < hash_table.size())
-        if (hash_table[i] != nullptr && hash_table[i]->key == key) 
-            return hash_table[i]->val;
-        else
-            i++;
-
-    i = 0;
-    while (i < idx)
+    while (i < hash_table.size()) {
         if (hash_table[i] != nullptr && hash_table[i]->key == key)
             return hash_table[i]->val;
-        else
-            i++;
+        i++;
+        if (i >= hash_table.size())
+            i %= hash_table.size();
+    }
 
     return (*success = false);
 }
 
 void HashMap::display(void) {
     std::cout << '{';
-    for (HashTableEntry *entry: hash_table) {
+    for (HashTableEntry *entry : hash_table) {
         if (entry == nullptr) continue;
         std::cout << ' ' << entry->key << ':' << ' ' << entry->val << ',';
     }
