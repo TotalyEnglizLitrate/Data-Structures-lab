@@ -41,8 +41,8 @@ void run_testcase(unsigned player_count) {
 
   for (unsigned i = 0; i < player_count; i++) {
     cout << player_strengths[i] -
-                (player_strengths[max_idx != i ? max_idx : second_max_idx])
-         << " ";
+      (player_strengths[max_idx != i ? max_idx : second_max_idx])
+      << " ";
   }
   cout << endl;
   return;
