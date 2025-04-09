@@ -2,8 +2,19 @@
 
 using namespace std;
 
+/*
+ * @brief Menu function to handle user input
+ * @details Takes user input and performs appropriate operations, printing
+ * success or failure states to the console
+ * @param map Pointer to the HashMap being modified
+ */
 void menu(HashMap *map);
 
+/*
+ * @brief Main function
+ * @details Initializes the HashMap and defers to the menu function for operations
+ * @return Return is handled via exit in menu
+ */
 int main(void) {
     HashMap *map = new HashMap();
     while (true)
