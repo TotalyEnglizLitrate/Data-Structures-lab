@@ -24,19 +24,18 @@ bool HashMap::insert(int key, int val) {
     if (membership) return false;
     long unsigned idx, i;
     idx = i = hash_function(key) % hash_table.size();
-    while (i != idx) {
-        if (hash_table[i] == nullptr) {
-            hash_table[i] = new HashTableEntry { key, val };
 
-            if (hash_table[i] == nullptr) return false;
-            len++;
-            if ((len * 10) / hash_table.size() > fill_ratio) rehash();
-            else return true;
-        }
+    while (hash_table[i] != nullptr) {
         i++;
         if (i >= hash_table.size())
             i %= hash_table.size();
     }
+
+    hash_table[i] = new HashTableEntry { key, val };
+    if (hash_table[i] == nullptr) return false;
+    len++;
+    if ((len * 10) / hash_table.size() > fill_ratio) rehash();
+    else return true;
 
     return false;
 }
