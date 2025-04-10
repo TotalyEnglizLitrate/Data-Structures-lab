@@ -39,17 +39,6 @@ bool HashMap::insert(int key, int val) {
         i++;
     } while ((i_sqr = sqr(i) % hash_table.size()) != idx);
 
-    while (hash_table[i_sqr] != nullptr) {
-        i++;
-        i_sqr = sqr(i) % hash_table.size();
-    }
-
-    hash_table[i_sqr] = new HashTableEntry { key, val };
-    if (hash_table[i_sqr] == nullptr) return false;
-    len++;
-    if ((len * 10) / hash_table.size() > fill_ratio) rehash();
-    else return true;
-
     return false;
 }
 
