@@ -6,7 +6,7 @@ void HashMap::rehash(void) {
     hash_table.resize(hash_table.size() * 2);
     for (unsigned i = 0; i < hash_table.size(); i++) hash_table[i] = nullptr;
 
-    for (HashTableEntry *entry: old_table) {
+    for (HashTableEntry *entry : old_table) {
         if (!insert(entry->key, entry->val)) {
             hash_table.resize(0);
             hash_table = old_table;
@@ -33,20 +33,16 @@ bool HashMap::insert(int key, int val) {
     if (membership) return false;
 
     long unsigned idx = hash_function(key) % hash_table.size();
+    HashTableEntry *cur_entry = hash_table[idx];
+    hash_table[idx] = new HashTableEntry { key, val, cur_entry };
     if (hash_table[idx] == nullptr) {
-        hash_table[idx] = new HashTableEntry {key, val, nullptr};
-        if (hash_table[idx] == nullptr)
-            return false;
-        len++;
-        return true;
-    }
-
-    HashTableEntry *traversal = hash_table[idx];
-    while (traversal->next != nullptr) traversal = traversal->next;
-    traversal->next = new HashTableEntry {key, val, nullptr};
-    if (traversal->next == nullptr)
+        hash_table[idx] = cur_entry;
         return false;
+    }
     len++;
+    return true;
+
+
     return true;
 }
 
@@ -103,7 +99,7 @@ int HashMap::search(int key, bool *success) {
 void HashMap::display(void) {
     std::cout << '{';
     HashTableEntry *traversal;
-    for (HashTableEntry *entry: hash_table) {
+    for (HashTableEntry *entry : hash_table) {
         if (entry == nullptr) continue;
         traversal = entry;
         while (traversal != nullptr) {
